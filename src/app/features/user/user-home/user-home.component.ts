@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { BookingCalendarComponent } from '../booking-calendar/booking-calendar.component';
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BookingCalendarComponent],
   templateUrl: './user-home.component.html',
-  styleUrl : './user-home.component.css' 
+  styleUrl: './user-home.component.css'
 })
 export class UserHomeComponent {
   userName = '';

@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   login(email: string): Observable<User> {
-    return this.http.get<User>(`${this.API_URL}/getByMail/${email}`).pipe(
+    return this.http.get<User>(`${this.API_URL}/getByEmail/${email}`).pipe(
       tap(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);

@@ -1,0 +1,41 @@
+<div class="calendar-container">
+    <div class="calendar-header">
+        <button (click)="previousMonth()">&lt;</button>
+        <h2>{{ currentDate | date:'MMMM yyyy' }}</h2>
+        <button (click)="nextMonth()">&gt;</button>
+    </div>
+
+    <div class="calendar-grid">
+        <div class="weekday-header" *ngFor="let day of weekDays">{{ day }}</div>
+
+        <div *ngFor="let day of calendarDays" class="calendar-day" [class.disabled]="!isValidBookingDate(day.date)"
+            [class.has-booking]="day.hasBooking" [class.selected]="selectDate(day.date)">
+            <div class="date">{{ day.date | date:'d' }}</div>
+            <div class="seats-available" *ngIf="isValidBookingDate(day.date)">
+                Available: {{ day.availableSeats }}
+            </div>
+            <div class="booking-actions" *ngIf="isValidBookingDate(day.date)">
+                <button *ngIf="!day.hasBooking && day.availableSeats > 0" (click)="selectDate(day.date)"
+                    [disabled]="day.availableSeats === 0">
+                    Book
+                </button>
+                <button *ngIf="day.hasBooking" class="cancel-btn" (click)="cancelBooking(day.bookingId)">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="booking-form" *ngIf="selectedDates.length > 0">
+        <h3>Selected Dates: {{ selectedDates.length }}</h3>
+        <div class="selected-dates">
+            <div *ngFor="let date of selectedDates">
+                {{ date | date:'mediumDate' }}
+                <button (click)="removeDate(date)">Remove</button>
+            </div>
+        </div>
+        <button class="book-multiple" (click)="bookMultipleDates()">
+            Book Selected Dates
+        </button>
+    </div>
+</div>
